@@ -3,6 +3,7 @@ import { Flame, Leaf } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useApp } from '../contexts/AppContext';
 import { AyurvedaMeal } from '../types';
+import { AyurvedaDietChart } from './AyurvedaDietChart';
 
 export const NutritionGuide: React.FC = () => {
   const { language, t } = useLanguage();
@@ -42,6 +43,8 @@ export const NutritionGuide: React.FC = () => {
         <h2 className="text-4xl font-bold text-gray-800 mb-4">{t('nutrition.title')}</h2>
         <p className="text-xl text-gray-600">{t('nutrition.subtitle')}</p>
       </div>
+
+      <AyurvedaDietChart />
 
       <div className="flex justify-center space-x-4 mb-8">
         {['all', 'vata', 'pitta', 'kapha'].map(dosha => (
