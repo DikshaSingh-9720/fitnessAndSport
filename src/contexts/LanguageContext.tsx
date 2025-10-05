@@ -29,7 +29,7 @@ const translations: Record<string, Record<Language, string>> = {
   },
   'hero.cta': {
     en: 'Start Your Journey',
-    hi: 'अपनी या��्रा शुरू करें'
+    hi: 'अपनी यात्रा शुरू करें'
   },
   'nav.home': {
     en: 'Home',
@@ -133,7 +133,7 @@ const translations: Record<string, Record<Language, string>> = {
   },
   'nutrition.subtitle': {
     en: 'Personalized meal plans based on your dosha',
-    hi: 'आपके दोष के आधार पर व्यक्तिगत भोजन योजन��'
+    hi: 'आपके दोष के आधार पर व्यक्तिगत भोजन योजना'
   },
   'dietChart.title': {
     en: 'Ayurvedic Diet Chart',
@@ -159,6 +159,10 @@ const translations: Record<string, Record<Language, string>> = {
     en: 'Meals',
     hi: 'भोजन'
   },
+  'dietChart.noMeals': {
+    en: 'No specific meals assigned for this slot. Follow the guidance above.',
+    hi: 'इस समय के लिए कोई विशिष्ट भोजन निर्धारित नहीं है। ऊपर दिए गए मार्गदर्शन का पालन करें।'
+  },
   'dietChart.lifestyleTips': {
     en: 'Lifestyle Recommendations',
     hi: 'जीवनशैली सिफारिशें'
@@ -173,7 +177,7 @@ const translations: Record<string, Record<Language, string>> = {
   },
   'nutrition.kapha': {
     en: 'Kapha',
-    hi: '��फ'
+    hi: 'कफ'
   },
   'nutrition.calories': {
     en: 'Calories',
@@ -221,7 +225,7 @@ const translations: Record<string, Record<Language, string>> = {
   },
   'leaderboard.subtitle': {
     en: 'Top performers in the FitBharat community',
-    hi: 'फिट भारत समुदाय में शीर��ष प्रदर्शनकर्ता'
+    hi: 'फिट भारत समुदाय में शीर्ष प्रदर्शनकर्ता'
   },
   'leaderboard.rank': {
     en: 'Rank',
@@ -253,7 +257,7 @@ const translations: Record<string, Record<Language, string>> = {
   },
   'goals.weightLoss': {
     en: 'Weight Loss',
-    hi: 'वजन घटाना'
+    hi: 'वजन घ���ाना'
   },
   'goals.muscleGain': {
     en: 'Muscle Gain',
@@ -305,7 +309,7 @@ const translations: Record<string, Record<Language, string>> = {
   },
   'recommendations.sports': {
     en: 'Recommended Challenges',
-    hi: 'अनुशंसित चुनौतियां'
+    hi: '���नुशंसित चुनौतियां'
   }
 };
 
