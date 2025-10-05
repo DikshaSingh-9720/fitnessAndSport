@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import type { Session } from '@supabase/supabase-js';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { AppProvider, useApp } from './contexts/AppContext';
 import { Header } from './components/Header';
@@ -9,9 +10,69 @@ import { NutritionGuide } from './components/NutritionGuide';
 import { SportsChallenges } from './components/SportsChallenges';
 import { Leaderboard } from './components/Leaderboard';
 import { Recommendations } from './components/Recommendations';
+import { Auth } from './components/Auth';
+import { supabase } from './supabaseClient';
 
 const AppContent: React.FC = () => {
-  const { showOnboarding, currentView } = useApp();
+  const { showOnboarding, currentView, setUserProfile, setShowOnboarding } = useApp();
+  const [session, setSession] = useState<Session | null>(null);
+  const [isAuthReady, setIsAuthReady] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const initializeAuth = async () => {
+      const { data, error } = await supabase.auth.getSession();
+
+      if (!isMounted) {
+        return;
+      }
+
+      if (error) {
+        console.error('Error loading authentication session', error);
+      }
+
+      setSession(data.session ?? null);
+      setIsAuthReady(true);
+    };
+
+    initializeAuth();
+
+    const {
+      data: { subscription }
+    } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      if (!isMounted) {
+        return;
+      }
+
+      setSession(nextSession);
+    });
+
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!session) {
+      setUserProfile(null);
+      setShowOnboarding(true);
+      return;
+    }
+  }, [session, setShowOnboarding, setUserProfile]);
+
+  if (!isAuthReady) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-green-50 flex items-center justify-center">
+        <div className="text-lg font-medium text-gray-600">Loading your experience…</div>
+      </div>
+    );
+  }
+
+  if (!session) {
+    return <Auth />;
+  }
 
   if (showOnboarding) {
     return <Onboarding />;
