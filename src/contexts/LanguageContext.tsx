@@ -29,7 +29,7 @@ const translations: Record<string, Record<Language, string>> = {
   },
   'hero.cta': {
     en: 'Start Your Journey',
-    hi: 'अपनी यात्रा शुरू करें'
+    hi: 'अपनी या��्रा शुरू करें'
   },
   'nav.home': {
     en: 'Home',
@@ -133,7 +133,35 @@ const translations: Record<string, Record<Language, string>> = {
   },
   'nutrition.subtitle': {
     en: 'Personalized meal plans based on your dosha',
-    hi: 'आपके दोष के आधार पर व्यक्तिगत भोजन योजना'
+    hi: 'आपके दोष के आधार पर व्यक्तिगत भोजन योजन��'
+  },
+  'dietChart.title': {
+    en: 'Ayurvedic Diet Chart',
+    hi: 'आयुर्वेदिक आहार चार्ट'
+  },
+  'dietChart.subtitle': {
+    en: 'Daily nourishment aligned to your chosen fitness goals',
+    hi: 'आपके चुने हुए फिटनेस लक्ष्यों के अनुरूप दैनिक पोषण'
+  },
+  'dietChart.empty': {
+    en: 'Select at least one fitness goal to unlock your Ayurvedic diet guidance.',
+    hi: 'अपना आयुर्वेदिक आहार मार्गदर्शन देखने के लिए कम से कम एक फिटनेस लक्ष्य चुनें।'
+  },
+  'dietChart.focus': {
+    en: 'Focus Area',
+    hi: 'मुख्य ध्यान'
+  },
+  'dietChart.hydration': {
+    en: 'Hydration Ritual',
+    hi: 'हाइड्रेशन रिवाज़'
+  },
+  'dietChart.meals': {
+    en: 'Meals',
+    hi: 'भोजन'
+  },
+  'dietChart.lifestyleTips': {
+    en: 'Lifestyle Recommendations',
+    hi: 'जीवनशैली सिफारिशें'
   },
   'nutrition.vata': {
     en: 'Vata',
@@ -145,7 +173,7 @@ const translations: Record<string, Record<Language, string>> = {
   },
   'nutrition.kapha': {
     en: 'Kapha',
-    hi: 'कफ'
+    hi: '��फ'
   },
   'nutrition.calories': {
     en: 'Calories',
@@ -193,7 +221,7 @@ const translations: Record<string, Record<Language, string>> = {
   },
   'leaderboard.subtitle': {
     en: 'Top performers in the FitBharat community',
-    hi: 'फिट भारत समुदाय में शीर्ष प्रदर्शनकर्ता'
+    hi: 'फिट भारत समुदाय में शीर��ष प्रदर्शनकर्ता'
   },
   'leaderboard.rank': {
     en: 'Rank',
