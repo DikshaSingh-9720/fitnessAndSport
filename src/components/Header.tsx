@@ -101,8 +101,15 @@ export const Header: React.FC = () => {
             </button>
             {userProfile && (
               <>
-                <button className="md:hidden p-2 text-gray-700 hover:bg-orange-100 rounded-lg">
+                <button className="md:hidden p-2 text-gray-700 hover:bg-orange-100 rounded-lg" aria-label="Open navigation">
                   <Menu size={24} />
+                </button>
+                <button
+                  onClick={handleSignOut}
+                  className="md:hidden p-2 text-gray-700 hover:bg-orange-100 rounded-lg"
+                  aria-label="Sign out"
+                >
+                  <LogOut size={24} />
                 </button>
                 <button
                   onClick={handleSignOut}
