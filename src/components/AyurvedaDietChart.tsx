@@ -63,7 +63,9 @@ export const AyurvedaDietChart: React.FC = () => {
 
             <div className="grid md:grid-cols-2 gap-5 mb-6">
               {plan.slots.map(slot => {
-                const meals = slot.mealIds?.map(id => mealMap.get(id)).filter(Boolean) as AyurvedaMeal[];
+                const meals = (slot.mealIds ?? [])
+                  .map(id => mealMap.get(id))
+                  .filter((meal): meal is AyurvedaMeal => Boolean(meal));
                 return (
                   <div
                     key={`${plan.goal}-${slot.period.en}`}
@@ -82,7 +84,7 @@ export const AyurvedaDietChart: React.FC = () => {
                         </span>
                       )}
                     </div>
-                    {meals.length > 0 && (
+                    {meals.length > 0 ? (
                       <div className="grid sm:grid-cols-2 gap-3">
                         {meals.map(meal => (
                           <div
@@ -118,6 +120,10 @@ export const AyurvedaDietChart: React.FC = () => {
                           </div>
                         ))}
                       </div>
+                    ) : (
+                      <p className="text-sm text-gray-500 mt-3">
+                        {t('dietChart.noMeals')}
+                      </p>
                     )}
                   </div>
                 );
