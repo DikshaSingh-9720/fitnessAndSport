@@ -58,9 +58,10 @@ const AppContent: React.FC = () => {
     if (!session) {
       setUserProfile(null);
       setShowOnboarding(true);
+      setCurrentView('home');
       return;
     }
-  }, [session, setShowOnboarding, setUserProfile]);
+  }, [session, setCurrentView, setShowOnboarding, setUserProfile]);
 
   if (!isAuthReady) {
     return (
