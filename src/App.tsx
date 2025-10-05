@@ -14,7 +14,7 @@ import { Auth } from './components/Auth';
 import { supabase } from './supabaseClient';
 
 const AppContent: React.FC = () => {
-  const { showOnboarding, currentView, setUserProfile, setShowOnboarding } = useApp();
+  const { showOnboarding, currentView, setUserProfile, setShowOnboarding, setCurrentView } = useApp();
   const [session, setSession] = useState<Session | null>(null);
   const [isAuthReady, setIsAuthReady] = useState(false);
 
