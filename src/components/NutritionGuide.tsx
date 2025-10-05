@@ -102,8 +102,8 @@ export const NutritionGuide: React.FC = () => {
                   <span className="font-semibold">{meal.calories} {t('nutrition.calories')}</span>
                 </div>
                 <div className="flex gap-1">
-                  {meal.dietary_category.map((cat, idx) => (
-                    <Leaf key={idx} size={16} className="text-green-600" />
+                  {meal.dietary_category.map(cat => (
+                    <Leaf key={cat} size={16} className="text-green-600" />
                   ))}
                 </div>
               </div>
