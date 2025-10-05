@@ -1,5 +1,5 @@
 import React from 'react';
-import { Globe, Menu } from 'lucide-react';
+import { Globe, LogOut, Menu } from 'lucide-react';
 import { supabase } from '../supabaseClient';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useApp } from '../contexts/AppContext';
