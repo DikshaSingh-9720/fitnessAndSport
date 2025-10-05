@@ -1,5 +1,6 @@
 import React from 'react';
-import { Globe, Menu } from 'lucide-react';
+import { Globe, LogOut, Menu } from 'lucide-react';
+import { supabase } from '../supabaseClient';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useApp } from '../contexts/AppContext';
 
@@ -9,6 +10,13 @@ export const Header: React.FC = () => {
 
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'hi' : 'en');
+  };
+
+  const handleSignOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error('Error signing out', error);
+    }
   };
 
   return (
@@ -92,9 +100,24 @@ export const Header: React.FC = () => {
               <span className="font-semibold">{language === 'en' ? 'हिं' : 'EN'}</span>
             </button>
             {userProfile && (
-              <button className="md:hidden p-2 text-gray-700 hover:bg-orange-100 rounded-lg">
-                <Menu size={24} />
-              </button>
+              <>
+                <button className="md:hidden p-2 text-gray-700 hover:bg-orange-100 rounded-lg" aria-label="Open navigation">
+                  <Menu size={24} />
+                </button>
+                <button
+                  onClick={handleSignOut}
+                  className="md:hidden p-2 text-gray-700 hover:bg-orange-100 rounded-lg"
+                  aria-label="Sign out"
+                >
+                  <LogOut size={24} />
+                </button>
+                <button
+                  onClick={handleSignOut}
+                  className="hidden md:inline-flex items-center px-3 py-2 rounded-lg border border-orange-500 text-orange-600 hover:bg-orange-50 transition-colors"
+                >
+                  Sign out
+                </button>
+              </>
             )}
           </div>
         </div>
