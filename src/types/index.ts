@@ -43,6 +43,25 @@ export interface AyurvedaMeal {
   image_url: string;
 }
 
+export interface LocalizedText {
+  en: string;
+  hi: string;
+}
+
+export interface AyurvedaDietPlanSlot {
+  period: LocalizedText;
+  suggestion: LocalizedText;
+  mealIds?: string[];
+}
+
+export interface AyurvedaDietPlan {
+  goal: string;
+  focus: LocalizedText;
+  hydration: LocalizedText;
+  lifestyleTips: LocalizedText[];
+  slots: AyurvedaDietPlanSlot[];
+}
+
 export interface SportsChallenge {
   id: string;
   sport_type: string;

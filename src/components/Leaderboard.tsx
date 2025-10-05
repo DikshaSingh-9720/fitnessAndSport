@@ -43,7 +43,7 @@ export const Leaderboard: React.FC = () => {
       <div className="grid md:grid-cols-3 gap-6 mb-12">
         {leaderboard.slice(0, 3).map((entry, idx) => {
           const positions = [1, 0, 2];
-          const actualEntry = leaderboard[positions[idx]];
+          const actualEntry = leaderboard[positions[idx]] ?? entry;
           return (
             <div
               key={actualEntry.id}
