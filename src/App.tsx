@@ -10,6 +10,7 @@ import { NutritionGuide } from './components/NutritionGuide';
 import { SportsChallenges } from './components/SportsChallenges';
 import { Leaderboard } from './components/Leaderboard';
 import { Recommendations } from './components/Recommendations';
+import { YogaAiCoach } from './components/YogaAiCoach';
 import { Auth } from './components/Auth';
 import { supabase } from './supabaseClient';
 
@@ -87,6 +88,7 @@ const AppContent: React.FC = () => {
       {currentView === 'nutrition' && <NutritionGuide />}
       {currentView === 'sports' && <SportsChallenges />}
       {currentView === 'leaderboard' && <Leaderboard />}
+      {currentView === 'coach' && <YogaAiCoach />}
       {currentView === 'recommendations' && <Recommendations />}
 
       <footer className="bg-gradient-to-r from-orange-600 via-white to-green-600 mt-16">
