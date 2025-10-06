@@ -14,7 +14,7 @@ const createDisabledSupabase = (): SupabaseClient => {
   return {
     auth: {
       async getSession() {
-        return { data: { session: null }, error };
+        return { data: { session: null }, error: null };
       },
       async signInWithOtp() {
         return { data: null, error };
