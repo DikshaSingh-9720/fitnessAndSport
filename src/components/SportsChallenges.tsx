@@ -12,7 +12,7 @@ interface EnhancedChallenge extends SportsChallenge {
 }
 
 export const SportsChallenges: React.FC = () => {
-  const { language, t } = useLanguage() ?? { language: 'en', t: (key: string) => key };
+  const { language } = useLanguage() ?? { language: 'en' };
   const { sportsChallenges } = useApp() ?? { sportsChallenges: [] };
 
   // Sidebar Sports Info
@@ -43,7 +43,7 @@ export const SportsChallenges: React.FC = () => {
         'Best of 3 sets decides winner.',
       ],
       rules_hi: [
-        'सिंगल्स या डबल्स खेल।',
+        'सिंगल्स या डबल���स खेल।',
         '21 अंक पहले पाने वाला सेट जीतता है।',
         'शटल सीमा के अंदर आना चाहिए।',
         '3 सेट में सबसे अच्छा विजेता तय करता है।',
@@ -76,7 +76,7 @@ export const SportsChallenges: React.FC = () => {
       ],
       rules_hi: [
         'दो टीमों को रेड लेने का क्रम।',
-        'रेडर लगातार "कबड्डी" बोले।',
+        'रेडर लगातार "��बड्डी" बोले।',
         'विपक्षी को टैग करें और सुरक्षित लौटें।',
         'सफल रेड और टैकल पर अंक।',
       ],
