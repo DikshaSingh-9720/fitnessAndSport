@@ -1,17 +1,26 @@
 import { FormEvent, useState } from 'react';
-import { supabase } from '../supabaseClient';
+import { supabase, isSupabaseConfigured } from '../supabaseClient';
+
+const supabaseUnavailableMessage = 'Supabase is not configured. Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to enable sign-in.';
 
 export const Auth: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(
+    isSupabaseConfigured ? null : supabaseUnavailableMessage
+  );
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!email) {
       setErrorMessage('Please enter a valid email address.');
+      return;
+    }
+
+    if (!isSupabaseConfigured) {
+      setErrorMessage(supabaseUnavailableMessage);
       return;
     }
 
@@ -45,6 +54,11 @@ export const Auth: React.FC = () => {
             Sign in with your email address to continue your wellness journey.
           </p>
         </div>
+        {!isSupabaseConfigured && (
+          <div className="rounded-lg border border-yellow-200 bg-yellow-50 px-4 py-3 text-sm text-yellow-800 mb-4">
+            Supabase configuration is missing. Contact your administrator to enable email sign-in.
+          </div>
+        )}
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label htmlFor="auth-email" className="block text-sm font-medium text-gray-700 mb-2">
@@ -56,7 +70,8 @@ export const Auth: React.FC = () => {
               value={email}
               onChange={event => setEmail(event.target.value)}
               required
-              className="w-full rounded-lg border border-orange-200 px-4 py-3 text-gray-800 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-100"
+              disabled={!isSupabaseConfigured}
+              className="w-full rounded-lg border border-orange-200 px-4 py-3 text-gray-800 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-100 disabled:bg-gray-100 disabled:text-gray-500"
               placeholder="you@example.com"
               autoComplete="email"
             />
@@ -73,7 +88,7 @@ export const Auth: React.FC = () => {
           )}
           <button
             type="submit"
-            disabled={isLoading}
+            disabled={isLoading || !isSupabaseConfigured}
             className="w-full rounded-lg bg-gradient-to-r from-orange-500 to-green-500 px-4 py-3 text-white font-semibold shadow-md transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-orange-200 disabled:cursor-not-allowed disabled:opacity-70"
           >
             {isLoading ? 'Sending magic link…' : 'Send magic link'}
