@@ -49,7 +49,11 @@ const translations: Record<string, Record<Language, string>> = {
   },
   'nav.leaderboard': {
     en: 'Leaderboard',
-    hi: 'लीडरबोर्ड'
+    hi: '���ीडरबोर्ड'
+  },
+  'nav.coach': {
+    en: 'AI Coach',
+    hi: 'एआई कोच'
   },
   'onboarding.title': {
     en: 'Welcome to FitBharat',
@@ -141,7 +145,7 @@ const translations: Record<string, Record<Language, string>> = {
   },
   'dietChart.subtitle': {
     en: 'Daily nourishment aligned to your chosen fitness goals',
-    hi: 'आपके चुने हुए फिटनेस लक्ष्यों के अनुरूप दैनिक पोषण'
+    hi: 'आपके चुने हुए फ��टनेस लक्ष्यों के अनुरूप दैनिक पोषण'
   },
   'dietChart.empty': {
     en: 'Select at least one fitness goal to unlock your Ayurvedic diet guidance.',

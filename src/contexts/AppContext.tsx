@@ -1,13 +1,15 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { UserProfile, YogaPose, AyurvedaMeal, SportsChallenge, LeaderboardEntry } from '../types';
 
+type AppView = 'home' | 'yoga' | 'nutrition' | 'sports' | 'leaderboard' | 'recommendations' | 'coach';
+
 interface AppContextType {
   userProfile: UserProfile | null;
   setUserProfile: (profile: UserProfile | null) => void;
   showOnboarding: boolean;
   setShowOnboarding: (show: boolean) => void;
-  currentView: 'home' | 'yoga' | 'nutrition' | 'sports' | 'leaderboard' | 'recommendations';
-  setCurrentView: (view: 'home' | 'yoga' | 'nutrition' | 'sports' | 'leaderboard' | 'recommendations') => void;
+  currentView: AppView;
+  setCurrentView: (view: AppView) => void;
   yogaPoses: YogaPose[];
   ayurvedaMeals: AyurvedaMeal[];
   sportsChallenges: SportsChallenge[];
@@ -19,7 +21,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [showOnboarding, setShowOnboarding] = useState(true);
-  const [currentView, setCurrentView] = useState<'home' | 'yoga' | 'nutrition' | 'sports' | 'leaderboard' | 'recommendations'>('home');
+  const [currentView, setCurrentView] = useState<AppView>('home');
 
   const yogaPoses: YogaPose[] = [
     {
@@ -48,7 +50,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       description_en: 'Powerful standing pose that builds strength and stamina',
       description_hi: 'शक्तिशाली खड़े आसन जो शक्ति और सहनशक्ति बनाता है',
       benefits_en: ['Strengthens legs and arms', 'Opens hips and chest', 'Improves focus and balance'],
-      benefits_hi: ['पैरों और बाहों को मजबूत करता है', 'कूल्हों और छाती को खोलता है', 'ध्यान और संतुलन में सुधार करता है'],
+      benefits_hi: ['पैरों और ���ाहों को मजबूत करता है', 'कूल्हों और छाती को खोलता है', 'ध्यान और संतुलन में सुधार करता है'],
       instructions_en: ['Step feet wide apart', 'Turn right foot out', 'Bend right knee', 'Extend arms parallel', 'Gaze forward'],
       instructions_hi: ['पैरों को चौड़ा करें', 'दाहिना पैर बाहर मोड़ें', 'दाहिना घुटना मोड़ें', 'भुजाओं को समानांतर फैलाएं', 'आगे देखें'],
       duration_minutes: 5,
@@ -64,7 +66,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       description_en: 'Balance pose that improves focus and stability',
       description_hi: 'संतुलन आसन जो ध्यान और स्थिरता में सुधार करता है',
       benefits_en: ['Improves balance', 'Strengthens legs', 'Enhances concentration'],
-      benefits_hi: ['संतुलन में सुधार करता है', 'पैरों को मजबूत करता है', 'एकाग्रता बढ़ाता है'],
+      benefits_hi: ['संतुलन म��ं सुधार करता है', 'पैरों को मजबूत करता है', 'एकाग्रता बढ़ाता है'],
       instructions_en: ['Stand on left leg', 'Place right foot on inner thigh', 'Bring palms together', 'Fix gaze on point', 'Hold steady'],
       instructions_hi: ['बाएं पै�� पर खड़े हों', 'दाहिना पैर भीतरी जांघ पर रखें', 'हथेलियों को एक साथ लाएं', 'एक बिंदु पर नजर रखें', 'स्थिर रहें'],
       duration_minutes: 4,
@@ -96,7 +98,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       description_en: 'Calming forward fold that stretches the entire back body',
       description_hi: 'शांत आगे की ओर झुकाव जो पूरे पीछे के शरीर को खींचता है',
       benefits_en: ['Stretches spine and hamstrings', 'Calms the mind', 'Improves digestion'],
-      benefits_hi: ['रीढ़ और हैमस्ट्रिंग को खींचता है', 'मन को शांत करता है', 'पाचन में सुधार करता है'],
+      benefits_hi: ['रीढ़ और ह��मस्ट्रिंग को खींचता है', 'मन को शांत करता है', 'पाचन में सुधार करता है'],
       instructions_en: ['Sit with legs extended', 'Inhale and lengthen spine', 'Exhale and fold forward', 'Hold feet or shins', 'Breathe deeply'],
       instructions_hi: ['पैर फैलाकर बैठें', 'सांस लें और रीढ़ को लंबा करें', 'सांस छोड़ें और आगे झुकें', 'पैर य�� पिंडलियां पकड़ें', 'गहरी सांस लें'],
       duration_minutes: 5,
@@ -112,7 +114,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       description_en: 'Classic meditation pose that calms the mind',
       description_hi: 'क्लासिक ध्यान आसन जो मन को शांत करता है',
       benefits_en: ['Opens hips', 'Improves posture', 'Promotes meditation'],
-      benefits_hi: ['कूल्हे खोलता है', 'मुद्रा में सुधार करता है', 'ध्यान को बढ़ावा देता है'],
+      benefits_hi: ['कूल्हे खोलता है', 'मुद्रा में ��ुधार करता है', 'ध्यान को बढ़ावा देता है'],
       instructions_en: ['Sit on floor', 'Cross legs deeply', 'Place feet on thighs', 'Rest hands on knees', 'Keep spine straight'],
       instructions_hi: ['फर्श पर बैठें', 'पैरों को गहराई से क्रॉस करें', 'पैरों को जांघों पर रखें', 'हाथों को घुटनों पर रखें', 'रीढ़ सीधी रखें'],
       duration_minutes: 10,
@@ -131,7 +133,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       description_en: 'Warming and nourishing rice dish with anti-inflammatory properties',
       description_hi: 'सूजन-रोधी गुणों के साथ गर्म और पोषक चावल की डिश',
       ingredients_en: ['Basmati rice', 'Turmeric powder', 'Ghee', 'Cumin seeds', 'Salt'],
-      ingredients_hi: ['बासमती चावल', 'हल्दी पाउडर', 'घी', 'जीरा', 'नमक'],
+      ingredients_hi: ['बासमती ���ावल', 'हल्दी पाउडर', 'घी', 'जीरा', 'नमक'],
       preparation_en: 'Cook rice with turmeric, temper with cumin and ghee',
       preparation_hi: 'चावल को हल्दी के साथ पकाएं, जीरा और घी से तड़का लगाएं',
       calories: 350,
@@ -149,7 +151,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       ingredients_en: ['Yogurt', 'Cucumber', 'Mint leaves', 'Cumin powder', 'Salt'],
       ingredients_hi: ['दही', 'खीरा', 'पुदीने के पत्ते', 'जीरा पाउडर', 'नमक'],
       preparation_en: 'Mix grated cucumber with yogurt, add spices and mint',
-      preparation_hi: 'कद्दूकस किया हुआ खीरा दही के साथ मिलाएं, मसाले और पुदीना डालें',
+      preparation_hi: 'कद्दूकस किया हुआ खीरा दही के साथ म���लाएं, मसाले और पुदीना डालें',
       calories: 120,
       image_url: 'https://images.pexels.com/photos/1410235/pexels-photo-1410235.jpeg'
     },
@@ -172,7 +174,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     {
       id: '4',
       name_en: 'Oats Porridge with Dates',
-      name_hi: 'खजूर के साथ ओट्स पॉरिज',
+      name_hi: 'ख��ूर के साथ ओट्स पॉरिज',
       dosha_type: ['vata', 'pitta'],
       meal_type: 'breakfast',
       dietary_category: ['vegetarian', 'vegan'],
@@ -193,7 +195,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       meal_type: 'dinner',
       dietary_category: ['vegetarian'],
       description_en: 'Complete one-pot meal, easy to digest and balancing',
-      description_hi: 'संपूर्ण एक-बर्तन भोजन, पचाने में आसान और संतुलित',
+      description_hi: 'संपूर्ण एक-बर्तन भोजन, पचा��े में आसान और संतुलित',
       ingredients_en: ['Rice', 'Moong dal', 'Mixed vegetables', 'Ghee', 'Ginger'],
       ingredients_hi: ['चावल', 'मूंग दाल', 'मिश्रित सब्जियां', 'घी', 'अदरक'],
       preparation_en: 'Cook rice and dal with vegetables, season with ghee',
@@ -273,7 +275,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       meal_type: 'breakfast',
       dietary_category: ['vegetarian', 'vegan'],
       description_en: 'Cooling and protein-dense drink ideal after training',
-      description_hi: 'कसरत के बाद के लिए उपयुक्त ठंडा और प्रोटीन से भरपूर पेय',
+      description_hi: 'कसरत के बाद के लिए उपयुक्�� ठंडा और प्रोटीन से भरपूर पेय',
       ingredients_en: ['Roasted gram flour', 'Water', 'Jaggery', 'Cardamom', 'Chia seeds'],
       ingredients_hi: ['भुना चना आटा', 'पानी', 'गुड़', 'इलायची', 'चिया सीड्स'],
       preparation_en: 'Blend sattu with water, jaggery, and cardamom until smooth',
