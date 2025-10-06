@@ -10,7 +10,13 @@ const difficultyScore: Record<YogaPose['difficulty_level'], number> = {
   advanced: 3
 };
 
-const focusOptions = [
+interface FocusOption {
+  value: 'balance' | 'flexibility' | 'strength' | 'calm' | 'energy';
+  label: { en: string; hi: string };
+  categories: string[];
+}
+
+const focusOptions: FocusOption[] = [
   {
     value: 'balance',
     label: { en: 'Balance & Stability', hi: 'संतुलन और स्थिरता' },
@@ -36,7 +42,7 @@ const focusOptions = [
     label: { en: 'Energy Boost', hi: 'ऊर्जा वृद्धि' },
     categories: ['standing', 'balancing', 'backbend']
   }
-] as const;
+];
 
 const moodOptions = [
   { value: 'stressed', label: { en: 'Stressed', hi: 'तनावग्रस्त' } },
@@ -45,22 +51,22 @@ const moodOptions = [
   { value: 'energized', label: { en: 'Energized', hi: 'ऊर्जावान' } }
 ] as const;
 
-const experienceLabels = {
+const experienceLabels: Record<YogaPose['difficulty_level'], { en: string; hi: string }> = {
   beginner: { en: 'Beginner', hi: 'शुरुआती' },
   intermediate: { en: 'Intermediate', hi: 'मध्यवर्ती' },
   advanced: { en: 'Advanced', hi: 'उन्नत' }
-} as const;
+};
 
-const stageLabels = {
+const stageLabels: Record<'warmup' | 'main' | 'cooldown', { en: string; hi: string }> = {
   warmup: { en: 'Warm-up', hi: 'वार्म-अप' },
   main: { en: 'Main Flow', hi: 'मुख्य प्रवाह' },
   cooldown: { en: 'Cool Down', hi: 'शांत चरण' }
-} as const;
+};
 
 const moodBreathGuidance: Record<(typeof moodOptions)[number]['value'], { en: string; hi: string }> = {
   stressed: {
     en: 'Practice 4-6 breathing. Inhale for four counts, exhale for six to calm the nervous system.',
-    hi: '4-6 श्वास का अभ्यास करें। चार गिनती में सांस लें, छह गिनती में छोड़ें ताकि तंत्रिका तंत्र शांत हो।'
+    hi: '4-6 श्वास का अभ्यास करें। चार गिनत�� में सांस लें, छह गिनती में छोड़ें ताकि तंत्रिका तंत्र शांत हो।'
   },
   tired: {
     en: 'Use three rounds of Kapalabhati to awaken energy before beginning the flow.',
@@ -79,7 +85,7 @@ const moodBreathGuidance: Record<(typeof moodOptions)[number]['value'], { en: st
 const focusAffirmations: Record<(typeof focusOptions)[number]['value'], { en: string; hi: string }> = {
   balance: {
     en: '“I am steady, rooted, and calm.”',
-    hi: '"मैं स्थिर, जुड़ा और शांत हूं।"'
+    hi: '"मैं स्थ��र, जुड़ा और शांत हूं।"'
   },
   flexibility: {
     en: '“Each breath softens my body and mind.”',
@@ -132,7 +138,7 @@ const getLocalized = (language: ReturnType<typeof useLanguage>['language'], text
 };
 
 export const YogaAiCoach: React.FC = () => {
-  const { language, t } = useLanguage();
+  const { language } = useLanguage();
   const { yogaPoses, userProfile } = useApp();
 
   const [experience, setExperience] = useState<YogaPose['difficulty_level']>(
