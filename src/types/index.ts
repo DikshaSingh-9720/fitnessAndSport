@@ -7,6 +7,9 @@ export interface UserProfile {
   dietary_preferences: string[];
   dosha_type?: 'vata' | 'pitta' | 'kapha';
   sports_interests: string[];
+  completed_challenge_ids: string[];
+  total_points: number;
+  yoga_sessions: number;
 }
 
 export interface YogaPose {

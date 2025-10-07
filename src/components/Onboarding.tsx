@@ -39,7 +39,10 @@ export const Onboarding: React.FC = () => {
     const profile: UserProfile = {
       id: '1',
       ...formData,
-      language_preference: 'en'
+      language_preference: 'en',
+      completed_challenge_ids: [],
+      total_points: 0,
+      yoga_sessions: 0
     };
     setUserProfile(profile);
     setShowOnboarding(false);

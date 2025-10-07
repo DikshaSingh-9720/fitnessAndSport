@@ -35,6 +35,10 @@ const translations: Record<string, Record<Language, string>> = {
     en: 'Home',
     hi: 'होम'
   },
+  'nav.dashboard': {
+    en: 'Dashboard',
+    hi: 'डैशबोर्ड'
+  },
   'nav.yoga': {
     en: 'Yoga',
     hi: 'योग'
