@@ -1,92 +1,113 @@
-import os
+from fastapi import FastAPI, File, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
-import tensorflow as tf
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-
-
+import cv2
 import os
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
+import mediapipe as mp
+import tensorflow as tf
+from io import BytesIO
+from PIL import Image
 
-#  data directory
-base_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '107 yoga poses')
-train_dir = os.path.join(base_dir, 'train')
-val_dir = os.path.join(base_dir, 'val')
-test_dir  = os.path.join(base_dir, 'test')
+app = FastAPI()
 
-# Get class names from train
-class_names = [folder for folder in os.listdir(train_dir) if os.path.isdir(os.path.join(train_dir, folder))]
-class_names.sort()
-print("Detected classes:", class_names)
-
-# ImageDataGenerator for training
-train_datagen = ImageDataGenerator(rescale=1./255)
-train_generator = train_datagen.flow_from_directory(
-    train_dir,
-    target_size=(128,128),
-    batch_size=32,
-    class_mode='categorical'
+# CORS for frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
-val_datagen = ImageDataGenerator(rescale=1./255)
-val_generator = val_datagen.flow_from_directory(
-    val_dir,
-    target_size=(128,128),
-    batch_size=32,
-    class_mode='categorical'
-)
+# Load model
+
+model_path = os.path.join(os.path.dirname(__file__), "..", "yoga_model.h5")
+model = tf.keras.models.load_model(model_path)
 
 
+# MediaPipe pose
+mp_pose = mp.solutions.pose
+mp_drawing = mp.solutions.drawing_utils
 
-valid_datagen = ImageDataGenerator(rescale=1./255)
+POSE_CLASSES = ["Warrior", "Tree", "Cobra", "DownwardDog", "Chair"]
+
+# ---- Helper Functions ----
+def read_image(file: UploadFile):
+    img = Image.open(BytesIO(file.file.read()))
+    img = img.convert("RGB")
+    return np.array(img)
+
+def get_joint_angle(a, b, c):
+    """Calculate angle between three points (in degrees)."""
+    a = np.array(a)
+    b = np.array(b)
+    c = np.array(c)
+    ba = a - b
+    bc = c - b
+    cosine_angle = np.dot(ba, bc) / (np.linalg.norm(ba) * np.linalg.norm(bc))
+    angle = np.degrees(np.arccos(cosine_angle))
+    return int(angle)
+
+def analyze_pose_landmarks(landmarks):
+    """Check body alignment & return tips"""
+    tips = []
+    # key landmarks
+    left_shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x,
+                     landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
+    left_elbow = [landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].x,
+                  landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].y]
+    left_wrist = [landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].x,
+                  landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y]
+    left_hip = [landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].x,
+                landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y]
+    left_knee = [landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].x,
+                 landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].y]
+    left_ankle = [landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].x,
+                  landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].y]
+
+    # Angles
+    elbow_angle = get_joint_angle(left_shoulder, left_elbow, left_wrist)
+    knee_angle = get_joint_angle(left_hip, left_knee, left_ankle)
+    back_angle = get_joint_angle(left_shoulder, left_hip, left_knee)
+
+    # Rules
+    if elbow_angle < 150:
+        tips.append("Straighten your arms.")
+    if knee_angle > 160:
+        tips.append("Bend your knees slightly.")
+    if back_angle < 150:
+        tips.append("Keep your back straight.")
+
+    if not tips:
+        tips.append("Perfect alignment! Keep it up.")
+
+    return tips
 
 
-# Create generators
-train_generator = train_datagen.flow_from_directory(
-train_dir,
-target_size=(128, 128),
-batch_size=32,
-class_mode='categorical'
-)
+@app.post("/predict")
+async def predict_pose(file: UploadFile = File(...)):
+    image = read_image(file)
+    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
+    # MediaPipe pose detection
+    with mp_pose.Pose(static_image_mode=True) as pose:
+        result = pose.process(image_rgb)
+        if not result.pose_landmarks:
+            return {"error": "No person detected"}
 
-val_generator = val_datagen.flow_from_directory(
-val_dir,
-target_size=(128, 128),
-batch_size=32,
-class_mode='categorical'
-)
+        landmarks = result.pose_landmarks.landmark
+        feedback_tips = analyze_pose_landmarks(landmarks)
 
+    # Model prediction
+    resized = cv2.resize(image_rgb, (224, 224))
+    normalized = resized / 255.0
+    pred = model.predict(np.expand_dims(normalized, axis=0))
+    class_idx = np.argmax(pred)
+    confidence = float(np.max(pred))
+    class_name = POSE_CLASSES[class_idx]
 
-num_classes = len(train_generator.class_indices)
-
-
-# CNN Model
-model = Sequential()
-model.add(Conv2D(32, (3,3), activation='relu', input_shape=(128,128,3)))
-model.add(MaxPooling2D(2,2))
-model.add(Conv2D(64, (3,3), activation='relu'))
-model.add(MaxPooling2D(2,2))
-model.add(Flatten())
-model.add(Dense(128, activation='relu'))
-model.add(Dropout(0.3))
-model.add(Dense(num_classes, activation='softmax'))
-
-
-model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-
-
-# Train model
-model.fit(
-train_generator,
-epochs=10,
-validation_data=val_generator
-)
-
-
-# Save trained model
-model.save(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'yoga_model.h5'))
-
-
-print('Model trained! comp ...')
+    return {
+        "pose": class_name,
+        "confidence": round(confidence * 100, 2),
+        "feedback": feedback_tips
+    }

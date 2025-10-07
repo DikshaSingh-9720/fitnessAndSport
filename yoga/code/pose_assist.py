@@ -4,14 +4,14 @@ import os
 from tensorflow.keras.models import load_model
 
 # path to  trained model
-model_path = r"C:\Users\HP\Desktop\yoga\yoga_model.h5"
+model_path = r"..\yoga\code\yoga_model.h5"
 
 
 
 model = load_model(model_path)
 
 # Path to train folder to get class names
-train_dir = r"C:\Users\HP\Desktop\yoga\107 yoga poses\train"
+train_dir = r"..\yoga\code\107 yoga poses\train"
 
 
 class_names = [folder for folder in os.listdir(train_dir) if os.path.isdir(os.path.join(train_dir, folder))]

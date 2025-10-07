@@ -97,6 +97,16 @@ export const Header: React.FC = () => {
               >
                 {t('nav.leaderboard')}
               </button>
+              <button
+                onClick={() => setCurrentView('dashboard')}
+                className={`px-3 py-2 rounded-lg transition-colors ${
+                  currentView === 'dashboard'
+                    ? 'bg-orange-500 text-white'
+                    : 'text-gray-700 hover:bg-orange-100'
+                }`}
+              >
+                {t('nav.dashboard')}
+              </button>
             </nav>
           )}
 

@@ -36,14 +36,18 @@ export const Onboarding: React.FC = () => {
   };
 
   const handleFinish = () => {
-    const profile: UserProfile = {
-      id: '1',
-      ...formData,
-      language_preference: 'en'
-    };
-    setUserProfile(profile);
-    setShowOnboarding(false);
+  const profile: UserProfile = {
+    id: '1', // Ideally, generate a unique ID
+    ...formData,
+    language_preference: 'en',
+    completed_challenge_ids: [],
+    total_points: 0,
+    yoga_sessions: 0
   };
+  setUserProfile(profile);
+  setShowOnboarding(false);
+};
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-green-50 flex items-center justify-center p-4">

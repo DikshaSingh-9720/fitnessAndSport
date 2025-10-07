@@ -13,6 +13,7 @@ import { Recommendations } from './components/Recommendations';
 import { YogaAiCoach } from './components/YogaAiCoach';
 import { Auth } from './components/Auth';
 import { supabase } from './supabaseClient';
+import { UserDashboard } from './components/UserDashboard';
 
 const AppContent: React.FC = () => {
   const { showOnboarding, currentView, setUserProfile, setShowOnboarding, setCurrentView } = useApp();
@@ -90,6 +91,7 @@ const AppContent: React.FC = () => {
       {currentView === 'leaderboard' && <Leaderboard />}
       {currentView === 'coach' && <YogaAiCoach />}
       {currentView === 'recommendations' && <Recommendations />}
+      {currentView === 'dashboard' && <UserDashboard />}
 
       <footer className="bg-gradient-to-r from-orange-600 via-white to-green-600 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
