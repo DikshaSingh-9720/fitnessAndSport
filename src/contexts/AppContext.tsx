@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { UserProfile, YogaPose, AyurvedaMeal, SportsChallenge, LeaderboardEntry } from '../types';
 
-type AppView = 'home' | 'yoga' | 'nutrition' | 'sports' | 'leaderboard' | 'recommendations' | 'coach';
+type AppView = 'dashboard' | 'home' | 'yoga' | 'nutrition' | 'sports' | 'leaderboard' | 'recommendations' | 'coach';
 
 interface AppContextType {
   userProfile: UserProfile | null;

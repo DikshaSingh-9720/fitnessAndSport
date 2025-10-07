@@ -3,6 +3,7 @@ import type { Session } from '@supabase/supabase-js';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { AppProvider, useApp } from './contexts/AppContext';
 import { Header } from './components/Header';
+import { UserDashboard } from './components/UserDashboard';
 import { Hero } from './components/Hero';
 import { Onboarding } from './components/Onboarding';
 import { YogaLibrary } from './components/YogaLibrary';
@@ -83,6 +84,7 @@ const AppContent: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50 via-white to-green-50">
       <Header />
+      {currentView === 'dashboard' && <UserDashboard />}
       {currentView === 'home' && <Hero />}
       {currentView === 'yoga' && <YogaLibrary />}
       {currentView === 'nutrition' && <NutritionGuide />}
