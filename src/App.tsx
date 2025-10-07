@@ -14,11 +14,23 @@ import { YogaAiCoach } from './components/YogaAiCoach';
 import { Auth } from './components/Auth';
 import { supabase } from './supabaseClient';
 import { UserDashboard } from './components/UserDashboard';
+import { useNavigate } from 'react-router-dom';
 
 const AppContent: React.FC = () => {
   const { showOnboarding, currentView, setUserProfile, setShowOnboarding, setCurrentView } = useApp();
   const [session, setSession] = useState<Session | null>(null);
   const [isAuthReady, setIsAuthReady] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getSession = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (data.session) {
+        navigate('/dashboard'); // redirect after successful login
+      }
+    };
+    getSession();
+  }, []);
 
   useEffect(() => {
     let isMounted = true;

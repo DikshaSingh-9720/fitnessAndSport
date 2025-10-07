@@ -10,17 +10,14 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-const translations: Record<string, Record<Language, string>> = { 
+const translations: Record<string, Record<Language, string>> = {
   /* App & Hero */
   'app.title': { en: 'FitBharat', hi: 'फिट भारत' },
   'app.tagline': { en: 'Your Journey to Health & Wellness', hi: 'स्वास्थ्य और कल्याण की आपकी यात्रा' },
   'hero.title': { en: 'Embrace Indian Fitness Culture', hi: 'भारतीय फिटनेस संस्कृति को अपनाएं' },
   'hero.subtitle': { en: 'Join the Fit India Movement with personalized Yoga, Ayurveda, and Traditional Sports', hi: 'व्यक्तिगत योग, आयुर्वेद और पारंपरिक खेलों के साथ फिट इंडिया मूवमेंट से जुड़ें' },
   'hero.cta': { en: 'Start Your Journey', hi: 'अपनी यात्रा शुरू करें' },
-   'nav.dashboard': {
-    en: 'Dashboard',
-    hi: 'डैशबोर्ड'
-  },
+  'nav.dashboard': { en: 'Dashboard', hi: 'डैशबोर्ड' },
 
   /* Navigation */
   'nav.home': { en: 'Home', hi: 'होम' },
@@ -70,8 +67,6 @@ const translations: Record<string, Record<Language, string>> = {
   /* Sports */
   'sports.title': { en: 'Indian Sports Challenges', hi: 'भारतीय खेल चुनौतियां' },
   'sports.subtitle': { en: 'Join traditional sports challenges and earn points', hi: 'पारंपरिक खेल चुनौतियों में शामिल हों और अंक अर्जित करें' },
-  'sports.kabaddi': { en: 'Kabaddi', hi: 'कबड्डी' },
-  'sports.khokho': { en: 'Kho-Kho', hi: 'खो-खो' },
   'sports.points': { en: 'Points', hi: 'अंक' },
   'sports.days': { en: 'days', hi: 'दिन' },
   'sports.join': { en: 'Join Challenge', hi: 'चुनौती में शामिल हों' },
@@ -91,133 +86,21 @@ const translations: Record<string, Record<Language, string>> = {
   'leaderboard.challenges': { en: 'Challenges', hi: 'चुनौतियां' },
   'leaderboard.sessions': { en: 'Yoga Sessions', hi: 'योग सत्र' },
 
-  /* Messages */
-  'fitindia.message': { en: 'Part of Fit India Movement', hi: 'फिट इंडिया मूवमेंट का हिस्सा' },
-  'atmanirbhar.message': { en: 'Supporting Atmanirbhar Bharat', hi: 'आत्मनिर्भर भारत का समर्थन' },/* Hero Section */
-  'hero.wellness': { en: 'Holistic Wellness', hi: 'संपूर्ण तंदुरुस्ती' },
-  'hero.traditionalSports': { en: 'Traditional Sports', hi: 'पारंपरिक खेल' },
-  'hero.communityDriven': { en: 'Community Driven', hi: 'समुदाय संचालित' },
-  'hero.strengthTraining': { en: 'Strength Training', hi: 'शक्ति प्रशिक्षण' },
-  'hero.cardioEndurance': { en: 'Cardio & Endurance', hi: 'कार्डियो और सहनशक्ति' },
-  'hero.yogaMindfulness': { en: 'Yoga & Mindfulness', hi: 'योग और ध्यान' },
-  'hero.preventiveHealth': { en: 'Preventive Health', hi: 'निवारक स्वास्थ्य' },
-  'hero.inclusiveAccess': { en: 'Inclusive Access', hi: 'समावेशी पहुँच' },
-  'hero.quote': {
-    en: 'Fitness is not about being better than someone else. It’s about being better than you used to be.',
-    hi: 'फिटनेस किसी और से बेहतर होने के बारे में नहीं है। यह अपने पुराने आप से बेहतर होने के बारे में है।'
-  },
-  'hero.ruralMessage': {
-    en: "Rural communities deserve access to modern wellness tools. We're building bridges through technology, tradition, and trust.",
-    hi: "ग्रामीण समुदायों को आधुनिक तंदुरुस्ती उपकरणों तक पहुँच का हक है। हम तकनीक, परंपरा और विश्वास के माध्यम से पुल बना रहे हैं।"
-  },
-
-  /* Supporting India */
-  'support.atmanirbhar': { en: 'Supporting Atmanirbhar Bharat', hi: 'आत्मनिर्भर भारत का समर्थन' },
-
-  /* Sports Titles */
-  'hero.sportsTitle': { en: 'Sports & Activities', hi: 'खेल और गतिविधियाँ' },
+  /* Sports Descriptions */
   'sports.mallakhamb': { en: 'Mallakhamb', hi: 'मल्लखंब' },
   'sports.mallakhambDesc': { en: 'Ancient pole sport promoting strength and agility.', hi: 'प्राचीन खंभा खेल जो शक्ति और चुस्ती को बढ़ावा देता है।' },
-
-  'sports.khokho': { en: 'Kho-Kho', hi: 'खो-खो' },
   'sports.khokhoDesc': { en: 'Fast-paced team sport rooted in Indian tradition.', hi: 'तेज़-तर्रार टीम खेल जो भारतीय परंपरा में निहित है।' },
-
-  'sports.yoga': { en: 'Yoga', hi: 'योग' },
-  'sports.yogaDesc': { en: 'Mind-body practice for holistic health and mental clarity.', hi: 'समग्र स्वास्थ्य और मानसिक स्पष्टता के लिए मन-शरीर अभ्यास।' },
-
-  'sports.cycling': { en: 'Cycling', hi: 'साइक्लिंग' },
-  'sports.cyclingDesc': { en: 'Low-impact cardio accessible to all age groups.', hi: 'सभी आयु समूहों के लिए कम प्रभाव वाला कार्डियो।' },
-
-  'sports.kabaddi': { en: 'Kabaddi', hi: 'कबड्डी' },
   'sports.kabaddiDesc': { en: 'High-intensity sport with deep cultural roots.', hi: 'गहन सांस्कृतिक जड़ों वाला उच्च-तीव्रता खेल।' },
 
-  'sports.walkingClubs': { en: 'Walking Clubs', hi: 'वॉकिंग क्लब' },
-  'sports.walkingClubsDesc': { en: 'Community-led fitness for elders and youth.', hi: 'बुजुर्गों और युवाओं के लिए समुदाय संचालित फिटनेस।' },
-
-  'sports.meditationCircles': { en: 'Meditation Circles', hi: 'ध्यान मंडल' },
-  'sports.meditationCirclesDesc': { en: 'Group mindfulness sessions for emotional well-being.', hi: 'भावनात्मक तंदुरुस्ती के लिए समूह ध्यान सत्र।' },
-
-  'sports.nutritionWorkshops': { en: 'Nutrition Workshops', hi: 'पोषण कार्यशालाएं' },
-  'sports.nutritionWorkshopsDesc': { en: 'Local diet education for long-term health.', hi: 'दीर्घकालिक स्वास्थ्य के लिए स्थानीय आहार शिक्षा।' },
-
-  'sports.villageMarathons': { en: 'Village Marathons', hi: 'गांव मैराथन' },
-  'sports.villageMarathonsDesc': { en: 'Inclusive events promoting endurance and unity.', hi: 'सहनशक्ति और एकता को बढ़ावा देने वाले समावेशी आयोजन।' },
-
   /* Footer */
-  'footer.logoSymbol': { en: 'फ', hi: 'फ' },
   'footer.appName': { en: 'FitBharat', hi: 'फिट भारत' },
-  'footer.tagline': { en: 'Empowering India through Yoga, Ayurveda, and Traditional Sports', hi: 'योग, आयुर्वेद और पारंपरिक खेलों के माध्यम से भारत को सशक्त बनाना' },
-  'footer.fitindiaFlag': { en: '🇮🇳', hi: '🇮🇳' },
-  'footer.fitindiaText': { en: 'Fit India Movement', hi: 'फिट इंडिया मूवमेंट' },
-  'footer.atmanirbharIcon': { en: '💪', hi: '💪' },
-  'footer.atmanirbharText': { en: 'Atmanirbhar Bharat', hi: 'आत्मनिर्भर भारत' },
-
-  /* Goals & Diet */
-
-  'goals.weightLoss': {
-    en: 'Weight Loss',
-    hi: 'वजन घ���ाना'
-  },
-  'goals.muscleGain': {
-    en: 'Muscle Gain',
-    hi: 'मांसपेशियों में वृद्धि'
-  },
-  'goals.flexibility': {
-    en: 'Flexibility',
-    hi: 'लचीलापन'
-  },
-  'goals.stress': {
-    en: 'Stress Relief',
-    hi: 'तनाव मुक्ति'
-  },
-  'goals.endurance': {
-    en: 'Endurance',
-    hi: 'सहनशक्ति'
-  },
-  'goals.overall': {
-    en: 'Overall Wellness',
-    hi: 'समग्र कल्याण'
-  },
-  'diet.vegetarian': {
-    en: 'Vegetarian',
-    hi: 'शाकाहारी'
-  },
-  'diet.vegan': {
-    en: 'Vegan',
-    hi: 'शुद्ध शाकाहारी'
-  },
-  'diet.nonveg': {
-    en: 'Non-Vegetarian',
-    hi: 'मांसाहारी'
-  },
-  'diet.jain': {
-    en: 'Jain',
-    hi: 'जैन'
-  },
-  'recommendations.title': {
-    en: 'Your Personalized Recommendations',
-    hi: 'आपकी व्यक्तिगत सिफारिशें'
-  },
-  'recommendations.yoga': {
-    en: 'Recommended Yoga Poses',
-    hi: 'अनुशंसित योग आसन'
-  },
-  'recommendations.nutrition': {
-    en: 'Recommended Meals',
-    hi: 'अनुशंसित भोजन'
-  },
-  'recommendations.sports': {
-    en: 'Recommended Challenges',
-    hi: '���नुशंसित चुनौतियां'
-  }
+  'footer.tagline': { en: 'Empowering India through Yoga, Ayurveda, and Traditional Sports', hi: 'योग, आयुर्वेद और पारंपरिक खेलों के माध्यम से भारत को सशक्त बनाना' }
 };
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>('en');
 
-  const t = (key: string): string => {
-    return translations[key]?.[language] || key;
-  };
+  const t = (key: string): string => translations[key]?.[language] || key;
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t }}>
@@ -228,8 +111,6 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
 
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
-  if (context === undefined) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
-  }
+  if (!context) throw new Error('useLanguage must be used within a LanguageProvider');
   return context;
 };
